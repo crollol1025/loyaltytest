@@ -4,7 +4,13 @@ export default function Cancel() {
       <div style={{ textAlign: 'center', marginTop: '100px' }}>
         <h1>❌ Payment Canceled</h1>
         <p>Your payment was not completed. Feel free to try again.</p>
-        <a href="/test">Go back to test</a>
+        import Link from 'next/link';
+
+// Inside your component:
+<Link href="/test">
+  <a>Go back to the test</a>
+</Link>
+
       </div>
     );
   }

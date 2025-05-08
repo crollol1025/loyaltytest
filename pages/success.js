@@ -1,4 +1,4 @@
-// pages/success.js
+import Link from 'next/link';
 import Stripe from 'stripe';
 
 const getResultMessage = (score) => {
@@ -43,31 +43,19 @@ export default function Success({ customerName, amountTotal, score }) {
   const communication = score >= 21 ? "Strong" : score >= 12 ? "Fair" : "Weak";
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '60px' }}>
+    <div style={{ textAlign: 'center', marginTop: '100px' }}>
       <h1>Test Evaluated!</h1>
       <p>Thank you, {customerName}!</p>
 
-      <h2 style={{ paddingTop: '20px' }}>Your Relationship Loyalty Test Results:</h2>
+      <h2>Your Relationship Loyalty Test Results:</h2>
 
       <p style={{ maxWidth: '700px', margin: '20px auto', lineHeight: '1.8' }}>
         <strong>{getResultMessage(score)}</strong>
       </p>
 
-      <a
-        href="/test"
-        style={{
-          display: 'inline-block',
-          padding: '12px 24px',
-          backgroundColor: '#4CAF50',
-          color: '#fff',
-          borderRadius: '8px',
-          textDecoration: 'none',
-          fontWeight: 'bold',
-          marginTop: '20px'
-        }}
-      >
-        Take the test again
-      </a>
+      <Link href="/test">
+        <a>Take the test again</a>
+      </Link>
     </div>
   );
 }
