@@ -1,5 +1,6 @@
-import Link from 'next/link';
+// pages/success.js
 import Stripe from 'stripe';
+import Link from 'next/link'; // ✅ added this import
 
 const getResultMessage = (score) => {
   if (score >= 21) return (
@@ -53,9 +54,7 @@ export default function Success({ customerName, amountTotal, score }) {
         <strong>{getResultMessage(score)}</strong>
       </p>
 
-      <Link href="/test">
-        <a>Take the test again</a>
-      </Link>
+      <Link href="/test">Take the test again</Link> {/* ✅ fixed here */}
     </div>
   );
 }
@@ -71,7 +70,6 @@ export async function getServerSideProps(context) {
 
   const session = await stripe.checkout.sessions.retrieve(session_id);
 
-  // Retrieve score from session metadata (assuming you stored it there during checkout session creation)
   const score = parseFloat(session.metadata?.score || 0);
 
   return {
