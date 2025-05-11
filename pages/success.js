@@ -84,15 +84,19 @@ export async function getServerSideProps(context) {
     return { notFound: true };
   }
 
-  const session = await stripe.checkout.sessions.retrieve(session_id);
+  try {
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    const score = parseFloat(session.metadata?.score || 0);
 
-  const score = parseFloat(session.metadata?.score || 0);
-
-  return {
-    props: {
-      customerName: session.customer_details?.name || 'Customer',
-      amountTotal: session.amount_total,
-      score,
-    },
-  };
+    return {
+      props: {
+        customerName: session.customer_details?.name || 'Customer',
+        amountTotal: session.amount_total,
+        score,
+      },
+    };
+  } catch (error) {
+    console.error('Failed to retrieve Stripe session:', error.message);
+    return { notFound: true };
+  }
 }

@@ -12,11 +12,14 @@ export default async function handler(req, res) {
   const { score } = req.body;
 
   // Validate the score parameter
-  if (!score || typeof score !== 'number') {
+  if (typeof score !== 'number') {
+    console.error('Invalid score provided:', score);
     return res.status(400).json({ error: 'Invalid score provided' });
   }
 
   try {
+    console.log('Creating checkout session for score:', score);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -35,9 +38,11 @@ export default async function handler(req, res) {
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cancel`,
       metadata: {
-        score: score,
+        score: score.toString(), // Stripe metadata values must be strings
       },
     });
+
+    console.log('Checkout session created:', session.id);
 
     res.status(200).json({ sessionId: session.id });
   } catch (err) {
