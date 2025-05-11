@@ -1,6 +1,6 @@
 // pages/success.js
 import Stripe from 'stripe';
-import Link from 'next/link'; // ✅ added this import
+import Link from 'next/link';
 
 const getResultMessage = (score) => {
   if (score >= 21) return (
@@ -44,24 +44,40 @@ export default function Success({ customerName, amountTotal, score }) {
   const communication = score >= 21 ? "Strong" : score >= 12 ? "Fair" : "Weak";
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h1>Test Evaluated!</h1>
-      <p>Thank you, {customerName}!</p>
+    <div style={{ textAlign: 'center', marginTop: '100px', padding: '0 20px' }}>
+      <h1>🎯 Test Evaluated Successfully</h1>
+      <p>Thank you, <strong>{customerName}</strong>!</p>
 
       <h2>Your Relationship Loyalty Test Results:</h2>
+      <p><strong>Trust Level:</strong> {trustLevel}</p>
+      <p><strong>Communication:</strong> {communication}</p>
+      <p><strong>Loyalty Score:</strong> {score} / 30 ({loyaltyPercent}%)</p>
 
       <p style={{ maxWidth: '700px', margin: '20px auto', lineHeight: '1.8' }}>
-        <strong>{getResultMessage(score)}</strong>
+        {getResultMessage(score)}
       </p>
 
-      <Link href="/test">Take the test again</Link> {/* ✅ fixed here */}
+      <div style={{ marginTop: '30px' }}>
+        <Link href="/test">
+          <button style={{
+            padding: '10px 20px',
+            backgroundColor: '#4da6ff',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '16px'
+          }}>
+            🔁 Take the test again
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
   const { session_id } = context.query;
 
   if (!session_id) {

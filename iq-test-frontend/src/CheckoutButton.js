@@ -5,7 +5,7 @@ const CheckoutButton = () => {
 
   // Fetch the session ID from the backend
   const fetchSessionId = async () => {
-    const response = await fetch('http://localhost:5000/create-checkout-session', {
+    const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

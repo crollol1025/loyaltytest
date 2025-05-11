@@ -36,7 +36,7 @@ app.post('/create-checkout-session', async (req, res) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID},
       cancel_url: 'http://localhost:3000/cancel',
       metadata: {
         score: score,  // Store the score in the session metadata
@@ -52,5 +52,5 @@ app.post('/create-checkout-session', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT}`);
+  console.log(Backend server running on port ${PORT});
 });
