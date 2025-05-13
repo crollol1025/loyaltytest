@@ -195,3 +195,9 @@ button:disabled {
   background-color: #d3d3d3;
   cursor: not-allowed;
 }
+
+/* Error highlight for unanswered questions */
+.question-block.error {
+  border: 2px solid #f87171;
+  background-color: #fff5f5;
+}

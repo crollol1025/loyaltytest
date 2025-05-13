@@ -49,10 +49,7 @@ export default function Success({ customerName, amountTotal, score }) {
       <p>Thank you, <strong>{customerName}</strong>!</p>
 
       <h2>Your Relationship Loyalty Test Results:</h2>
-      <p><strong>Trust Level:</strong> {trustLevel}</p>
-      <p><strong>Communication:</strong> {communication}</p>
-      <p><strong>Loyalty Score:</strong> {score} / 30 ({loyaltyPercent}%)</p>
-
+    
       <p style={{ maxWidth: '700px', margin: '20px auto', lineHeight: '1.8' }}>
         {getResultMessage(score)}
       </p>
