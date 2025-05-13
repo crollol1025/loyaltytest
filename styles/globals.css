@@ -98,10 +98,10 @@ progress::-moz-progress-bar {
   color: #555;
 }
 
-/* Options row */
+/* Options row - reduced spacing between buttons */
 .options-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 10px 0;
 }
 
@@ -125,27 +125,50 @@ progress::-moz-progress-bar {
   border: 2px solid #ccc;
   transition: all 0.2s ease-in-out;
   position: relative;
+  background-color: transparent;
 }
 
+/* Fill with matching color and tick when selected */
 .circle-option input:checked + .circle {
   border-width: 6px;
+  background-color: var(--selected-color);
 }
 
 /* Add check mark inside selected option */
 .circle-option input:checked + .circle::after {
+  content: "✓";
   position: absolute;
   top: 3px;
   left: 7px;
   font-size: 14px;
-  color: #0070f3;
+  color: white;
 }
 
 /* Color classes */
-.circle.strongly-disagree { border-color: #f87171; }
-.circle.disagree { border-color: #fb923c; }
-.circle.neutral { border-color: #d1d5db; }
-.circle.agree { border-color: #34d399; }
-.circle.strongly-agree { border-color: #10b981; }
+.circle.strongly-disagree {
+  border-color: #f87171;
+  --selected-color: #f87171;
+}
+
+.circle.disagree {
+  border-color: #fb923c;
+  --selected-color: #fb923c;
+}
+
+.circle.neutral {
+  border-color: #d1d5db;
+  --selected-color: #d1d5db;
+}
+
+.circle.agree {
+  border-color: #34d399;
+  --selected-color: #34d399;
+}
+
+.circle.strongly-agree {
+  border-color: #10b981;
+  --selected-color: #10b981;
+}
 
 .circle-option:hover .circle {
   opacity: 0.8;
