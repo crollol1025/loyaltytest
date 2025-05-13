@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import Link from 'next/link';
 
 const getResultMessage = (score) => {
-  if (score >= 21) return (
+  if (score >= 38) return (
     "🎉 Congratulations! It looks like your partner is highly loyal to you. " +
     "Your relationship demonstrates strong foundations of trust, honesty, and emotional security. " +
     "They are likely transparent with you, respect your boundaries, and prioritize your well-being. " +
@@ -11,7 +11,7 @@ const getResultMessage = (score) => {
     "To maintain this healthy dynamic, keep nurturing open communication, show appreciation regularly, and continue fostering intimacy both emotionally and physically. " +
     "Consider exploring new shared experiences together to deepen your bond even further. Remember, even the strongest relationships thrive with continuous effort and kindness."
   );
-  else if (score >= 12) return (
+  else if (score >= 21) return (
     "Your partner shows signs of moderate loyalty. There are many positive aspects to your relationship, " +
     "but also areas that might benefit from attention. They may care deeply for you, yet inconsistencies or occasional doubts might arise. " +
     "This doesn’t necessarily indicate serious problems, but it suggests opportunities for growth. " +
@@ -19,7 +19,7 @@ const getResultMessage = (score) => {
     "Mutual vulnerability and open dialogue can help close any gaps and reinforce commitment. " +
     "Don’t shy away from addressing small issues before they grow—healthy relationships are built through continuous tuning and understanding."
   );
-  else if (score >= 4) return (
+  else if (score >= 7) return (
     "There are some signs of low loyalty in your relationship. This could mean that certain behaviors or dynamics are raising red flags, " +
     "such as secrecy, avoidance, or inconsistency. However, please remember: no test can fully capture the complexity of a relationship. " +
     "People and situations change, and context matters. Use these insights as a prompt for reflection, not as a definitive judgment. " +
@@ -49,7 +49,7 @@ export default function Success({ customerName, amountTotal, score }) {
       <p>Thank you, <strong>{customerName}</strong>!</p>
 
       <h2>Your Relationship Loyalty Test Results:</h2>
-    
+
       <p style={{ maxWidth: '700px', margin: '20px auto', lineHeight: '1.8' }}>
         {getResultMessage(score)}
       </p>
