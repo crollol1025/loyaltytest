@@ -155,21 +155,28 @@ export default function Test() {
                 backgroundColor: '#e0f0ff', color: '#4da6ff'
               }}
             />
+            <div className="likert-scale-labels">
+              {options.map((label, idx) => (
+                <span key={idx}>{label}</span>
+              ))}
+            </div>
             {currentQuestions.map((q, idx) => (
               <div key={idx} className="question-block">
                 <h3>{q.question}</h3>
-                {q.options.map((opt, i) => (
-                  <label key={i}>
-                    <input
-                      type="radio"
-                      name={`q-${pageIndex * QUESTIONS_PER_PAGE + idx}`}
-                      value={opt}
-                      checked={answers[pageIndex * QUESTIONS_PER_PAGE + idx] === opt}
-                      onChange={() => handleAnswerChange(idx, opt)}
-                    />
-                    {opt}
-                  </label>
-                ))}
+                <div className="options-row">
+                  {q.options.map((opt, i) => (
+                    <label key={i} className="circle-option">
+                      <input
+                        type="radio"
+                        name={`q-${pageIndex * QUESTIONS_PER_PAGE + idx}`}
+                        value={opt}
+                        checked={answers[pageIndex * QUESTIONS_PER_PAGE + idx] === opt}
+                        onChange={() => handleAnswerChange(idx, opt)}
+                      />
+                      <span className={`circle ${opt.toLowerCase().replace(" ", "-")}`} />
+                    </label>
+                  ))}
+                </div>
               </div>
             ))}
             <button disabled={!allAnswered} onClick={handleNext}>

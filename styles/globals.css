@@ -1,129 +1,54 @@
-/* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: none; /* Remove all borders from every element */
-}
-
-/* Clean modern font */
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f9f9f9;
+.likert-scale-labels {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  color: #333;
-  flex-direction: column;
-}
-
-/* Container for the test content (no borders or boxes here) */
-.test-container {
-  text-align: center;
-  width: 600px;
-  max-width: 600px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
-  height: 500px; /* ✅ fixed height */
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
+  margin: 20px 0 10px 0;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-/* Add more space after the description text on the test page */
-.test-container p {
-  margin-bottom: 30px; /* Adjust the value to your preference */
+.question-block {
+  background: #fdfdfd;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* Styling for the welcome screen */
-.start-screen {
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.circle-option {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  margin-top: 50px;
-}
-
-/* Heading on the start screen */
-.start-screen h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.start-screen p {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.start-screen button {
-  padding: 12px 20px;
-  font-size: 1.25rem;
   cursor: pointer;
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 5px;
 }
 
-.start-screen button:hover {
-  background-color: #005bb5;
+.circle-option input {
+  display: none;
 }
 
-/* Styling for questions */
-h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  font-weight: 600;
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  transition: all 0.2s ease-in-out;
 }
 
-h2 {
-  font-size: 1.25rem;
-  margin-bottom: 20px;
-  font-weight: 400;
+.circle-option input:checked + .circle {
+  border-width: 6px;
 }
 
-/* Remove brackets and borders from the options */
-label {
-  display: block;
-  margin: 10px 0;
-  font-size: 1.1rem;
-  text-align: left;
-  cursor: pointer;
-  border: none; /* Ensure no borders around labels */
-}
+.circle.strongly-disagree { border-color: #f87171; }
+.circle.disagree { border-color: #fb923c; }
+.circle.neutral { border-color: #d1d5db; }
+.circle.agree { border-color: #34d399; }
+.circle.strongly-agree { border-color: #10b981; }
 
-/* Style for radio buttons */
-input[type="radio"] {
-  margin-right: 10px;
-  cursor: pointer;
-  accent-color: #0070f3; /* Modern styling for radio buttons */
-  border: none; /* Remove border from the radio button */
-}
-
-/* Style for buttons */
-button {
-  padding: 12px 20px;
-  font-size: 1.25rem;
-  cursor: pointer;
-  background-color: #0070f3;
-  color: white;
-  border: none; /* Ensure no border around button */
-  border-radius: 5px;
-  margin-top: 20px;
-  width: 100%;
-}
-
-button:hover {
-  background-color: #005bb5;
-}
-
-button:disabled {
-  background-color: #d3d3d3; /* Disabled button */
+.circle-option:hover .circle {
+  opacity: 0.8;
 }
