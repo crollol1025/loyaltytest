@@ -114,6 +114,12 @@ export default function Test() {
     }
   };
 
+  const handlePrevious = () => {
+    if (pageIndex > 0) {
+      setPageIndex(pageIndex - 1);
+    }
+  };
+
   const handlePayment = async () => {
     localStorage.setItem('relationshipScore', score);
     const response = await fetch('/api/create-checkout-session', {
@@ -179,9 +185,14 @@ export default function Test() {
                 </div>
               </div>
             ))}
-            <button disabled={!allAnswered} onClick={handleNext}>
-              {(pageIndex + 1) * QUESTIONS_PER_PAGE >= questions.length ? 'Finish' : 'Next Page'}
-            </button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+              <button onClick={handlePrevious} disabled={pageIndex === 0}>
+                Back
+              </button>
+              <button disabled={!allAnswered} onClick={handleNext}>
+                {(pageIndex + 1) * QUESTIONS_PER_PAGE >= questions.length ? 'Finish' : 'Next Page'}
+              </button>
+            </div>
           </>
         )}
 
