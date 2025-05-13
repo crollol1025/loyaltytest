@@ -133,7 +133,6 @@ progress::-moz-progress-bar {
 
 /* Add check mark inside selected option */
 .circle-option input:checked + .circle::after {
-  content: '✔';
   position: absolute;
   top: 3px;
   left: 7px;
