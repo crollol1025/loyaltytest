@@ -29,7 +29,7 @@ export default async function handler(req, res) {
             product_data: {
               name: 'Relationship Loyalty Test Result',
             },
-            unit_amount: 500, // $5.00 (Stripe uses the smallest unit of the currency, in cents)
+            unit_amount: 200, // $2.00 (Stripe uses the smallest unit of the currency, in cents)
           },
           quantity: 1,
         },
