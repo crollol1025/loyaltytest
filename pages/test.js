@@ -21,70 +21,51 @@ const topics = [
 ];
 
 const questions = [
-  // Trust
   { question: "I feel like I can trust my partner completely." },
   { question: "My partner shares their plans and whereabouts with me openly." },
   { question: "My partner is honest with me, even about difficult topics." },
   { question: "I don’t feel the need to check up on my partner." },
   { question: "My partner never gives me a reason to feel suspicious." },
-
-  // Emotional Loyalty
   { question: "My partner is emotionally invested in our relationship." },
   { question: "My partner talks positively about our future together." },
   { question: "My partner expresses their love regularly." },
   { question: "I don’t question my partner’s love for me." },
   { question: "My partner never makes me feel replaceable." },
-
-  // Phone & Social Media Behavior
   { question: "My partner hides nothing from me on their phone or social media." },
   { question: "My partner never hides conversations from me." },
   { question: "My partner avoids following or interacting with flirty content." },
   { question: "My partner is transparent about who they message." },
   { question: "My partner wouldn’t mind if I looked at their phone." },
-
-  // Interactions with Others
   { question: "My partner doesn't flirt with others in front of me." },
   { question: "My partner avoids situations that could lead to temptation." },
   { question: "My partner doesn’t seek attention from others romantically." },
   { question: "My partner doesn’t act differently around certain people." },
   { question: "My partner respects how I feel about who they hang out with." },
-
-  // Communication
   { question: "We discuss relationship expectations openly." },
   { question: "My partner respects my opinions and concerns." },
   { question: "My partner understands what behavior makes me uncomfortable." },
   { question: "We talk about what loyalty means to each of us." },
   { question: "My partner shares their thoughts and feelings honestly." },
-
-  // Independence vs Secrecy
   { question: "My partner doesn't keep old romantic interests around." },
   { question: "My partner avoids forming overly close relationships with others." },
   { question: "My partner doesn't have secretive friendships." },
   { question: "My partner tells me if someone flirts with them." },
   { question: "My partner would tell me if they developed feelings for someone else." },
-
-  // Defending the Relationship
   { question: "My partner defends our relationship when needed." },
   { question: "My partner sets boundaries with people who disrespect us." },
   { question: "My partner speaks positively about me to others." },
   { question: "My partner would confront someone who disrespected me." },
   { question: "My partner acts proud to be in this relationship." },
-
-  // Consistency & Reliability
   { question: "My partner keeps their promises to me." },
   { question: "My partner’s actions always match their words." },
   { question: "My partner has proven their loyalty over time." },
   { question: "My partner is consistent with their affection." },
   { question: "I can count on my partner to do the right thing." },
-
-  // Moral Alignment
   { question: "My partner values loyalty as much as I do." },
   { question: "My partner believes in monogamy." },
   { question: "My partner avoids doing things that would make me uncomfortable." },
   { question: "My partner considers how their actions affect me." },
   { question: "My partner is someone I share core values with." },
-
-  // Commitment & Long-Term Thinking
   { question: "My partner includes me in long-term plans." },
   { question: "My partner sees our relationship lasting a long time." },
   { question: "My partner makes decisions with \"us\" in mind." },
@@ -153,19 +134,34 @@ export default function Test() {
   };
 
   const handlePayment = async () => {
-    localStorage.setItem('relationshipScore', score);
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ score }),
-    });
+    try {
+      localStorage.setItem('relationshipScore', score);
 
-    const session = await response.json();
-    const stripe = await stripePromise;
-    const { error } = await stripe.redirectToCheckout({ sessionId: session.sessionId });
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ score }),
+      });
 
-    if (error) console.error('Stripe Checkout Error:', error);
-    else setIsPaymentCompleted(true);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Request failed: ${response.status} - ${errorText}`);
+      }
+
+      const session = await response.json();
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({ sessionId: session.sessionId });
+
+      if (error) {
+        console.error('Stripe Checkout Error:', error);
+        alert('Stripe checkout failed.');
+      } else {
+        setIsPaymentCompleted(true);
+      }
+    } catch (err) {
+      console.error('Checkout Error:', err.message);
+      alert('There was a problem starting the payment process.');
+    }
   };
 
   const handleRetry = () => {
